@@ -8,6 +8,7 @@ public class UserServiceTest {
 	void testCreateUser_whenUserDetailsProvided_returnUserObject() {
 		
 		// Arrange
+		UserService usersService = new UserServiceImpl();
 
 		// Act
 		
