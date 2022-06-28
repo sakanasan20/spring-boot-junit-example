@@ -1,6 +1,7 @@
 package tw.niq.app;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.AfterAll;
@@ -9,6 +10,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 @DisplayName("Test Math operations in Calculator class")
 class CalculatorTest {
@@ -28,7 +32,7 @@ class CalculatorTest {
 	@BeforeEach
 	void beforeEach() {
 		System.out.println("Executing @BeforeEach method.");
-		 calculator = new Calculator();
+		calculator = new Calculator();
 	}
 	
 	@AfterEach
@@ -81,16 +85,39 @@ class CalculatorTest {
 				() -> "Unexpected exception message");
 	}
 	
-	@DisplayName("Test 33-1 = 32")
-	@Test
-	void testIntegerSubtraction() {
-		System.out.println("Running test 33-1 = 32");
-		int minuend = 33;
-		int subtrahend = 1;
-		int expectResult = 32;
+	@ParameterizedTest
+	@ValueSource(strings = {"John", "Kate", "Alice"})
+	void valueSourceDemo(String firstName) {
+		System.out.println(firstName);
+		assertNotNull(firstName);
+	}
+	
+	@DisplayName("Test integer subtraction [minuend, subtrahend, expectResult]")
+	@ParameterizedTest
+//	@MethodSource()
+//	@CsvSource({
+//		"33, 1, 32", 
+//		"54, 1, 53", 
+//		"24, 1, 23"
+//	})
+	@CsvFileSource(resources = "/integerSubtraction.csv")
+	void testIntegerSubtraction(int minuend, int subtrahend, int expectResult) {
+		
+		System.out.println("Running test " + minuend + "-" + subtrahend + "=" + expectResult);
+		
 		int actualResult = calculator.integerSubtraction(minuend, subtrahend);
+		
 		assertEquals(expectResult, actualResult, 
 				() -> minuend + "-" + subtrahend + " did not produce " + expectResult);
 	}
 
+//	private static Stream<Arguments> testIntegerSubtraction() {
+//		
+//		return Stream.of(
+//				Arguments.of(33, 1, 32), 
+//				Arguments.of(54, 1, 53),
+//				Arguments.of(24, 1, 23)
+//		);
+//	}
+	
 }
