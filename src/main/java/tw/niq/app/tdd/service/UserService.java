@@ -1,4 +1,6 @@
-package tw.niq.app.tdd;
+package tw.niq.app.tdd.service;
+
+import tw.niq.app.tdd.model.User;
 
 public interface UserService {
 

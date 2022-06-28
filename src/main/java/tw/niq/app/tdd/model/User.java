@@ -1,4 +1,4 @@
-package tw.niq.app.tdd;
+package tw.niq.app.tdd.model;
 
 import java.util.UUID;
 
