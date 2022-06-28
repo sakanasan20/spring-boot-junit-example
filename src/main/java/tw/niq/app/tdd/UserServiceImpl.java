@@ -4,8 +4,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User createUser(String firstName, String lastName, String email, String password, String repeatPassword) {
-		// TODO Auto-generated method stub
-		return new User();
+
+		User user = new User(firstName, lastName, email, password, repeatPassword);
+		
+		return user;
 	}
 
 }
